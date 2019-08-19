@@ -1,0 +1,75 @@
+//查找字符串第一次重复出现的字符
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <stdlib.h>
+char FindRepeatNum(char*arr, int len)
+{
+	char *p = arr;
+	int cout = 0;
+	int str[256] = { 0 };
+	while (*p != '\0')
+	{
+		str[*p]++;
+		p++;
+	}
+	p = arr;
+	while (*p != '\0')
+	{
+		if (str[*p] == 2)
+		{
+			return *p;
+		}
+		p++;
+	}
+	printf("没有出现两次的字符\n");
+	return '\0';
+}
+
+int main()
+{
+	char arr[] = "acd";
+	int len = sizeof(arr) / sizeof(arr[0]);
+	char c=FindRepeatNum(arr, len);
+	printf("%c", c);
+	system("pause");
+	return 0;
+}
+
+
+/*
+字符串查找第一个只出现一次的字符
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <stdlib.h>
+int FindOnceChar(char *str)
+{
+	int arr[256] = { 0 };
+	int i = 0;
+	char *p = str;
+	//遍历数组 统计每个字符出现的字符
+	while (*p!='\0')
+	{
+		arr[*p]++;
+		p++;
+	}
+	p = str;
+	//按照str顺序查找数组arr
+	while (*p!='\0')
+	{
+		if (arr[*p]==1)
+		{
+			return *p;
+		}
+		p++;
+	}
+	return '\0';
+}
+
+int main()
+{
+	char str[] = "abaccdeff";
+	printf("%c", FindOnceChar(str));
+	system("pause");
+	return 0;
+}
+*/
