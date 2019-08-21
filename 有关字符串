@@ -73,3 +73,43 @@ int main()
 	return 0;
 }
 */
+
+
+/*
+//从第一个字符串删除第二个字符串
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <stdlib.h>
+char*DeleteArr(char *arr1, char*arr2)
+{
+	int str[256] = { 0 };
+	while (*arr2!= '\0')
+	{
+		str[*arr2]=1;
+		arr2++;
+	}
+	char *p1 = arr1;
+	char *p2 = arr1;
+	while (*p1!= '\0')
+	{
+		if (str[*p1]!= 1)
+		{
+			*p2 = *p1;
+			p2++;
+		}
+		p1++;
+	}
+	*p2 = '\0';
+	return arr1; 
+}
+
+int main()
+{
+	char arr1[] = { "How are You" };
+	char *arr2 = { "aeo" };
+	char*s=DeleteArr(arr1, arr2);
+	printf("%s", s);
+	system("pause");
+	return 0;
+}
+*/
