@@ -1,4 +1,4 @@
-//读入一个字符串str，输出字符串str中的连续最长的数字串
+//1.读入一个字符串str，输出字符串str中的连续最长的数字串
 /*
 输入描述:
 个测试输入包含1个测试用例，一个字符串str，长度不超过255。
@@ -40,3 +40,31 @@ int main()
     cout<<str.substr(pos-max+1,max)<<endl;
     return 0;
 }
+
+//2.数组中出现次数超过一半的数字
+/*
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。
+由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+*/
+
+//代码
+class Solution {
+public:
+    int MoreThanHalfNum_Solution(vector<int> numbers) {
+        int max = 0;
+        for(int i = 0; i < numbers.size(); i++)
+        {
+            if(numbers[i]>max)
+                max=numbers[i];
+        }
+        vector<int> v;
+        v.resize(max+1);
+        for(int i = 0; i < numbers.size(); i++)
+        {
+            v[numbers[i]]++;
+            if(v[numbers[i]] > numbers.size()/2)
+                return numbers[i];
+        }
+        return 0;
+    }
+};
