@@ -109,3 +109,35 @@ sum1 = sum2;
 cout<<result<<endl;
 return 0;
 }
+
+#include<iostream>
+using namespace std;
+int main()
+{
+int n;
+cin>>n;
+int *a = new int[n];
+for(int i=0; i<n; i++)
+{
+cin>>a[i];
+}
+if(n==0 && n < 0)
+return 0;
+if( n == 1)
+{
+cout << a[0] << endl;
+return 0;
+}
+int max = a[0];
+int sum = 0;
+for(int i = 0; i < n; i++)
+{
+sum =sum+ a[i];
+if(sum > max)
+max = sum;
+if(sum <= 0)
+sum = 0;
+}
+cout << max << endl;
+return 0;
+}
