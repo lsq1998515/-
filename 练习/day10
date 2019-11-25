@@ -9,6 +9,7 @@
 返回：true
 */
 
+
 class Board {
 public:
 	bool checkWon(vector<vector<int> > board) {
@@ -29,7 +30,6 @@ public:
 		return false;
 	}
 };
-
 /*
 【解题思路】：
 井字棋有四种情况表示当前玩家获胜，1代表当前玩家棋子
