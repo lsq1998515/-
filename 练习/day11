@@ -1,0 +1,47 @@
+/*
+题目描述
+有一棵无穷大的满二叉树，其结点按根结点一层一层地从左往右依次编号，根结点编号为1。现在有两个结点a，b。请设计一个算法，求出a和b点的最近公共祖先的编号。
+
+给定两个int a,b。为给定结点的编号。请返回a和b的最近公共祖先的编号。注意这里结点本身也可认为是其祖先。
+
+测试样例：
+2，3
+返回：1
+*/
+
+/*
+方法一:
+
+打印出两个结点的路径
+然后进行遍历查找第一个相同的结点即可.
+*/
+
+//方法一代码:
+class LCA {
+public:
+	int getLCA(int a, int b) {
+		// write code here
+		vector<int> v1;
+		vector<int> v2;
+		while (a >= 1)
+		{
+			v1.push_back(a);
+			a /= 2;
+		}
+		while (b >= 1)
+		{
+			v2.push_back(b);
+			b /= 2;
+		}
+		for (size_t i = 0; i < v1.size(); i++)
+		{
+			for (size_t j = 0; j < v2.size(); j++)
+			{
+				if (v1[i] == v2[j])
+				{
+					return v1[i];
+				}
+			}
+		}
+	}
+};
