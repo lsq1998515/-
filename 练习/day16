@@ -94,6 +94,39 @@ cout << count(input) << endl;
 return 0;
 }
 
+//第二种:
+#include<iostream>
+#include<math.h>
+  
+using namespace std;
+  
+bool isperfect(int num){
+    if(num==1) return false;
+    int thresh=(int)sqrt((double)num);
+    int sum=1;
+    for(int i=2;i<=thresh;i++){
+        if(num%i==0){
+            sum+=i;
+            sum+=num/i;
+            if(sum>num) return false;
+        }
+    }
+    if(sum==num) return true;
+    else return false;
+}
+  
+int main(){
+    int n;
+    while(cin>>n){
+        int ans=0;
+        for(int i=1;i<=n;i++){
+            if(isperfect(i)) ans++;
+        }
+        cout<<ans<<endl;
+    }
+      
+    return 0;
+}
 
 /*
 题目描述
