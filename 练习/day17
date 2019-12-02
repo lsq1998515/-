@@ -33,6 +33,44 @@
 */
 
 
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+    string str1;
+    string str2;
+    //用来保存相加后的字符串
+    while(cin>>str1>>str2)
+    {
+        //逆置
+        reverse(str1.begin(),str1.end());
+        reverse(str2.begin(),str2.end());
+        //找到短的字符串,将它 短长度到长字符串初始化为'0';
+        if( str1.size() >= str2.size())
+        {
+            str2.resize(str1.size(),'0');
+        }
+        else
+        {
+            str1.resize(str2.size(),'0');
+        }
+        string str3;
+        int sum = 0;//保存本位和
+        int pos = 0;//保存进位
+        int size=max(str1.size(),str2.size());
+        for(int i = 0; i < size ; i++)
+        {
+            sum = ((str1[i]-'0') +(str2[i]-'0') +pos)%10;
+            pos = ((str1[i]-'0') +(str2[i]-'0') +pos)/10;
+            str3.push_back(sum+'0');
+        }
+        reverse(str3.begin(),str3.end());
+        cout<<str3<<endl;
+    }
+    return 0;
+}
+
 
 /*
 【解题思路】：
@@ -79,3 +117,54 @@ cout << -1 << endl;
 }
 return 0;
 }
+
+/*
+题目描述
+请设计一个算法完成两个超长正整数的加法。
+
+ 
+
+接口说明
+
+
+ 
+
+ /*
+ 请设计一个算法完成两个超长正整数的加法。
+ 输入参数：
+ String addend：加数
+ String augend：被加数
+ 返回值：加法结果
+ */
+
+ public String AddLongInteger(String addend, String augend)
+ {
+     /*在这里实现功能*/
+  
+
+  return null;     
+ }
+
+
+ 
+
+ 
+
+ 
+
+输入描述:
+输入两个字符串数字
+
+输出描述:
+输出相加后的结果，string型
+
+示例1
+输入
+
+99999999999999999999999999999999999999999999999999
+1
+输出
+
+100000000000000000000000000000000000000000000000000
+*/
+
