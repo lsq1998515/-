@@ -54,3 +54,45 @@ cout << result << endl;
 }
 return 0;
 }
+
+#include<iostream>
+using namespace std;
+int getNum(int month)
+{
+if(month == 2)
+return 1;
+if(month == 1)
+return 1;
+return getNum(month - 1) + getNum(month - 2);
+}
+int main()
+{
+int month = 0;
+while(cin>>month)
+{
+cout << getNum(month) << endl;
+}
+return 0;
+}
+/*int main()
+{
+int month;
+while(cin>>month)
+{
+int sum = 1;
+vector<int> v;
+v.resize(month);
+for(int i = 2; i < month; i++)
+{
+v[0] = 1;
+v[1] = 0;
+v[i] = v[i-1] + v[i-2];
+sum += v[i];
+}
+cout << sum << endl;
+}
+return 0;
+}*/
+
+
+
