@@ -1,0 +1,201 @@
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+//模拟进程调度算法
+//最短作业优先
+//先来先服务
+//时间片轮转
+
+struct PCB
+{
+	char name;
+	float ArriveTime;//到达时间
+	float ServerTime;//服务时间
+	float FinshTime;//完成时间
+	float RoundTime;//周转时间
+	float WRoundTime;//带权周转时间
+	float AverWRoundTime;//平均带权周转时间
+	float AverRoundTime;//平均周转时间
+	//struct PCB *p;//结构体指针
+};
+
+void Init( PCB *pcb,int& num)
+{
+	cout << "请输入进程数目: ";
+	cin >> num;
+	for (int i = 0; i < num; i++)
+	{
+		cout << "请输入第" << i + 1 << "个进程的名字   到达时间    服务时间" << endl;
+		cin >> pcb[i].name >> pcb[i].ArriveTime >> pcb[i].ServerTime;
+	}
+	//cout << endl;
+}
+
+void DisPlay(PCB *pcb, int& num)
+{
+	cout << " 完成时间 " << "周转时间 " << "带权周转时间 " << endl;
+	for (int i = 0; i < num; ++i)
+	{
+		printf("%-10.2f%-10.2f%-10.2f\n", pcb[i].FinshTime, pcb[i].RoundTime, pcb[i].WRoundTime);
+	}
+	cout << "平均周转时间 " << "平均带权周转时间" << endl;
+	printf("%-10.2f%-10.2f\n", pcb->AverRoundTime, pcb->AverWRoundTime);
+	//printf("\n");
+}
+
+bool cmp(PCB &a, PCB &b)
+{
+	return a.ArriveTime < b.ArriveTime;
+}
+
+void sortFCFS(PCB * pcb, int& num)
+{
+	sort(pcb, pcb + num, cmp);
+}
+
+void FCFS(PCB * pcb,int& num)
+{
+	Init(pcb, num);
+	sortFCFS(pcb, num);
+	pcb[0].FinshTime = pcb[0].ServerTime;
+	//计算完成时间
+	for (int i = 1; i < num; ++i)
+	{
+		pcb[i].FinshTime = pcb[i].ServerTime + pcb[i - 1].FinshTime;
+	}
+	float SumRoundtime = 0.0;
+	//计算周转时间
+	for (int i = 0; i < num; ++i)
+	{
+		pcb[i].RoundTime = pcb[i].FinshTime - pcb[i].ArriveTime;
+		SumRoundtime += pcb[i].RoundTime;
+	}
+	pcb->AverRoundTime = SumRoundtime / num;
+	//计算带权周转时间
+	float SumWRounTim = 0.0;
+	for (int i = 0; i < num; ++i)
+	{
+		pcb[i].WRoundTime = pcb[i].RoundTime / pcb[i].ServerTime;
+		SumWRounTim += pcb[i].WRoundTime;//计算带权周转时间之和
+	}
+	pcb->AverWRoundTime = SumWRounTim / num;
+	DisPlay(pcb, num);
+}
+
+void SJPF(PCB * pcb, int& num)
+{
+	Init(pcb, num);
+	//排序,找到最先到的进程,
+	//执行结束判断有没有进程到达 如果有找时间片最短的进程执行  如果没有运行下一个时间最小的
+	sort(pcb, pcb + num, cmp);
+	//pcb[0].FinshTime = pcb[0].ServerTime;
+	for (int i = 0; i < num; ++i)
+	{
+		if (i == 0)
+		{
+			pcb[i].FinshTime = pcb[i].ServerTime;
+		}
+		else
+		{
+			//判断有没有下个进程到来
+		    vector<PCB>v;
+			int flag = i;
+			int j = 0;
+			for (j = i + 1; j < num; ++j)
+			{
+				if (pcb[j].ArriveTime < pcb[flag].FinshTime)
+				{
+					v.push_back(pcb[j]);
+				}
+			}
+			//sort(v.begin(),v.end());
+
+			//
+			size_t size = v.size();
+			if (size > 0)//说明有进程到达
+			{
+				float severtime = v[0].ServerTime;
+				size_t k = 0;
+				for (k = 0; k < size; ++k)
+				{
+					if (severtime > v[k].ServerTime)
+					{
+						
+					}
+				}
+			}
+
+			//说明没有进程到达
+	
+			pcb[i].FinshTime = pcb[i].ArriveTime + pcb[i].ServerTime;
+		
+		}
+	}
+
+}
+
+void RR()
+{
+	;
+}
+
+
+
+int select(int choose)
+{
+	if (choose == 1)
+		return 1;
+	if (choose == 2)
+		return 2;
+	if (choose == 3)
+		return 3;
+	return -1;
+}
+
+void ShowMenu()
+{
+	cout << "--------------------------------------------" << endl;
+	cout << "-------------*模拟进程调度算法--------------" << endl;
+	cout << "-------------1.先到先服务算法---------------" << endl;
+	cout << "-------------2.短作业优先算法---------------" << endl;
+	cout << "-------------3.时间片轮转算法---------------" << endl;
+	cout << "-------------0.退出-------------------------" << endl;
+	cout << "--------------------------------------------" << endl;
+
+}
+
+int main()
+{
+	int choose = 0;
+	while (1)
+	{
+		ShowMenu();
+		cout << "请输入你的选项: ";
+		cin >> choose;
+		switch (select(choose))
+		{
+		case 1:
+			struct PCB pcb[100];
+			int n;
+			FCFS(pcb, n);//先到先服务
+			break;
+		case 2:
+			SJPF();//短作业优先
+			break;
+		case 3:
+			RR();//短作业优先
+			break;
+		//case 0:
+		//	break;
+		default:
+			cout << "输入有误,请输入合法选项(num: 1 - 3) " << endl;
+			break;
+		}
+	}
+	system("pause");
+	return 0;	
+}
