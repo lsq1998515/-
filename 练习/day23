@@ -40,3 +40,22 @@ return 0;
 }
 };
 
+
+/*思路二：map统计*/
+class Gift {
+public:
+int getValue(vector<int> gifts, int n) {
+map<int,int> count;
+int middle = gifts.size() / 2;
+for(const auto& e : gifts)
+{
+++count[e];
+}
+for(const auto& e : count)
+{
+if(e.second >= middle)
+return e.first;
+}
+return 0;
+}
+};
