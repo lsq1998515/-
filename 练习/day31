@@ -1,0 +1,40 @@
+/*
+1. 标题：字符集合 | 时间限制：1秒 | 内存限制：32768K
+输入一个字符串，求出该字符串包含的字符集合
+输入描述：
+每组数据输入一个字符串，字符串最大长度为100，且只包含字母，不可能为空串，区分大小写。
+输出描述：
+每组数据一行，按字符串原有的字符顺序，输出字符集合，即重复出现并靠后的字母不输出。
+示例1:
+输入
+abcqweracb
+输出
+abcqwer
+*/
+
+
+#include <iostream>
+#include <unordered_set>
+#include <string>
+using namespace std;
+int main()
+{
+string s;
+string ret;
+unordered_set<char> uSet;
+while(cin>>s)
+{
+ret.clear();
+uSet.clear();
+for(const auto& ch : s)
+{
+if(uSet.count(ch) == 0)
+{
+uSet.insert(ch);
+ret += ch;
+}
+}
+cout<<ret<<endl;
+}
+return 0;
+}
